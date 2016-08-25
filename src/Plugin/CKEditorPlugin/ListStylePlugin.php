@@ -2,18 +2,20 @@
 
 namespace Drupal\ckeditor_liststyle\Plugin\CKEditorPlugin;
 
-use Drupal\ckeditor\CKEditorPluginBase;
+use Drupal\Component\Plugin\PluginBase;
 use Drupal\editor\Entity\Editor;
+use Drupal\ckeditor\CKEditorPluginInterface;
+use Drupal\ckeditor\CKEditorPluginContextualInterface;
 
 /**
  * Defines the "List Style" plugin.
  *
  * @CKEditorPlugin(
  *   id = "liststyle",
- *   label = @Translation("List Style"),
+ *   label = @Translation("List Style")
  * )
  */
-class ListStylePlugin extends CKEditorPluginBase {
+class ListStylePlugin extends PluginBase implements CKEditorPluginInterface, CKEditorPluginContextualInterface {
 
   /**
    * {@inheritdoc}
@@ -25,23 +27,42 @@ class ListStylePlugin extends CKEditorPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function isInternal() {
-    return FALSE;
+  public function isEnabled(Editor $editor) {
+    $enabled = FALSE;
+    $settings = $editor->getSettings();
+    foreach ($settings['toolbar']['rows'] as $row) {
+      foreach ($row as $group) {
+        foreach ($group['items'] as $button) {
+          if (($button === 'BulletedList') || ($button === 'NumberedList')) {
+            $enabled = TRUE;
+          }
+        }
+      }
+    }
+
+    return $enabled;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getDependencies(Editor $editor) {
-    return ['dialog', 'contextmenu'];
-  }
+   public function isInternal() {
+     return FALSE;
+   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLibraries(Editor $editor) {
-    return [];
-  }
+   public function getDependencies(Editor $editor) {
+     return [];
+   }
+
+  /**
+   * {@inheritdoc}
+   */
+   public function getLibraries(Editor $editor) {
+     return [];
+   }
 
   /**
    * {@inheritdoc}
