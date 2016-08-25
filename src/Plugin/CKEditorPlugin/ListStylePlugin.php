@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ckeditor_liststyle\Plugin\CKEditorPlugin\ListStylePlugin.
- */
-
 namespace Drupal\ckeditor_liststyle\Plugin\CKEditorPlugin;
 
 use Drupal\ckeditor\CKEditorPluginBase;
