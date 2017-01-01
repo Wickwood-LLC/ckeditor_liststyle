@@ -3,16 +3,19 @@ List Style Plugin
 
 Description
 ===========
-This plugin adds numbered list and ordered list properties dialogs (available in context menu).
+This plugin adds numbered list and ordered list properties dialogs (available
+in context menu).
 
 They allow setting:
 
-* list type (e.g. circle, square, dot for bulleted list or decimal, lower/upper roman, lower/upper alpha for numbered list)
+* list type (e.g. circle, square, dot for bulleted list or decimal, lower/upper
+  roman, lower/upper alpha for numbered list)
 * start number (for numbered list).
 
 Usage
 =====
-Right click on any numbered or ordered list in CKEditor to open the context menu.
+Right click on any numbered or ordered list in CKEditor to open the context
+menu.
 
 Installation
 ============
