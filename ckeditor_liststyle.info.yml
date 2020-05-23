@@ -4,4 +4,4 @@ description: This plugin adds numbered list and ordered list properties dialogs 
 package: CKEditor
 dependencies:
   - drupal:ckeditor
-core: 8.x
+core_version_requirement: ^8 || ^9
