@@ -31,47 +31,64 @@ This module requires:
 - [CKEditor 4 List Style](https://ckeditor.com/cke4/addon/liststyle): A CKEditor4 plugin that adds numbered list and ordered list properties dialogs (available in context menu).
 
 ### Install using Composer (recommended)
-If you use Composer to manage dependencies, edit `/composer.json` as follows.
 
-- Run `composer require --prefer-dist composer/installers` to ensure that you have the `composer/installers` package installed. This package facilitates the installation of packages into directories other than `/vendor` (e.g. `/libraries`) using Composer.
+There are at least couple different ways to install the CKEditor List Style module and the plugin via Composer.
 
-- Add one of the following to the "installer-paths" section of `composer.json`, or alter as necessary:
-
-``` json
-"libraries/{$name}": ["type:drupal-library"],
-```
-*or*
+- Previous recommendation requires adding following package definition to the "repositories" section of `composer.json`:
 
 ``` json
-"libraries/ckeditor/plugins/{$name}": ["type:drupal-library"],
-```
-
-- Add the following to the "repositories" section of `composer.json`:
-
-``` json
-{
-    "type": "package",
-    "package": {
-        "name": "ckeditor/liststyle",
-        "version": "4.8.0",
-        "type": "drupal-library",
-        "extra": {
-          "installer-name": "liststyle"
-        },
-        "dist": {
-            "url": "https://download.ckeditor.com/liststyle/releases/liststyle_4.8.0.zip",
-            "type": "zip"
+"repositories": {
+    ...
+    {
+        "type": "package",
+        "package": {
+            "name": "ckeditor/liststyle",
+            "version": "4.14.1",
+            "type": "drupal-library",
+            "extra": {
+                "installer-name": "ckeditor/plugins/liststyle"
+            },
+            "dist": {
+                "url": "https://download.ckeditor.com/liststyle/releases/liststyle_4.14.1.zip",
+                "type": "zip"
+            }
         }
     }
+    ...
 }
 ```
 
-- Run `composer require --prefer-dist 'ckeditor/liststyle:4.8.0'` - you should find that new directory has been created under `/libraries`
+- Update the `composer.lock` file: `composer update --lock`
 
-- Then install this module: `composer require 'drupal/ckeditor_liststyle:^1.3'`
+- Install plugin and the module: `composer require ckeditor/liststyle drupal/ckeditor_liststyle`
+
+Alternatively, you can merge the provided `composer.libraries.json` file to the project `composer.json` file:
+
+- Install [Composer Merge Plugin](https://github.com/wikimedia/composer-merge-plugin):
+  `composer require wikimedia/composer-merge-plugin`
+
+- Add the following to the `extra` section of the `composer.json` file:
+
+```json
+"extra": {
+    ...
+    "merge-plugin": {
+        "include": [
+            "web/modules/contrib/ckeditor_liststyle/composer.libraries.json"
+        ]
+    }
+    ...
+}
+```
+
+- Update the `composer.lock` file: `composer update --lock`
+
+- Install the module: `composer require drupal/ckeditor_liststyle`
+
+As the plugin is defined as a dependency, it would be installed to `/libraries/ckeditor/plugins/liststyle/plugin.js`.
 
 ### Install manually
-- Open https://ckeditor.com/cke4/addon/liststyle and download the *[version: 4.8.0](https://download.ckeditor.com/liststyle/releases/liststyle_4.8.0.zip)*.
+- Open https://ckeditor.com/cke4/addon/liststyle and download the *[version: 4.14.1](https://download.ckeditor.com/liststyle/releases/liststyle_4.14.1.zip)*.
 
 - Extract the content and copy to *libraries* folder. i.e. `/libraries/liststyle/plugin.js`
 

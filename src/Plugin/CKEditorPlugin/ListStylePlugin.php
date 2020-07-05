@@ -71,6 +71,7 @@ class ListStylePlugin extends PluginBase implements CKEditorPluginInterface, CKE
     $plugin_paths = [
       'libraries/liststyle/plugin.js',
       'libraries/ckeditor/plugins/liststyle/plugin.js',
+      'libraries/ckeditor_liststyle/plugin.js',
     ];
 
     $plugin = FALSE;

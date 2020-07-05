@@ -10,6 +10,7 @@ function ckeditor_liststyle_requirements($phase) {
     $plugin_paths = [
       '/libraries/liststyle/plugin.js',
       '/libraries/ckeditor/plugins/liststyle/plugin.js',
+      '/libraries/ckeditor_liststyle/plugin.js',
     ];
 
     $plugin = FALSE;
