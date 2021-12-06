@@ -4,19 +4,22 @@
       "type": "package",
       "package": {
         "name": "ckeditor/liststyle",
-        "version": "4.14.1",
-        "type": "drupal-library",
-        "extra": {
-          "installer-name": "ckeditor/plugins/liststyle"
-        },
+        "version": "4.17.1",
+        "type": "ckeditor-plugin",
         "dist": {
-          "url": "https://download.ckeditor.com/liststyle/releases/liststyle_4.14.1.zip",
+          "url": "https://download.ckeditor.com/liststyle/releases/liststyle_4.17.1.zip",
           "type": "zip"
         }
       }
     }
   ],
   "require": {
-    "ckeditor/liststyle": "^4.14"
+    "ckeditor/liststyle": "^4.17"
+  },
+  "extra": {
+    "installer-types": ["ckeditor-plugin"],
+    "installer-paths": {
+      "web/libraries/ckeditor/plugins/{$name}": ["type:ckeditor-plugin"]
+    }
   }
 }
