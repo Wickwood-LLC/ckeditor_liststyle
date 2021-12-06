@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Check requirements for CKEditor List Style module.
+ */
+
+/**
  * Implements hook_requirements().
  */
 function ckeditor_liststyle_requirements($phase) {
