@@ -11,13 +11,18 @@ They allow setting:
 * start number (for numbered list).
 
 ## Known issue
-Any text format with `Limit allowed HTML tags and correct faulty HTML` filter enabled will strip the `style` attribute from ANY tags. See [FilterHtml](https://api.drupal.org/api/drupal/core%21modules%21filter%21src%21Plugin%21Filter%21FilterHtml.php/class/FilterHtml) class:
+This plugin works only with the text formats supporting full HTML.
 
-> The 'style' and 'on*' ('onClick' etc.) attributes are always forbidden, and are removed by Xss::filter()
+Any text format with `Limit allowed HTML tags and correct faulty HTML` filter
+enabled will strip the `style` attribute from ANY tags. See [FilterHtml](https://api.drupal.org/api/drupal/core%21modules%21filter%21src%21Plugin%21Filter%21FilterHtml.php/class/FilterHtml) class:
 
-However, the [CKEditor 4 List Style](https://ckeditor.com/cke4/addon/liststyle) plugin sets the list properties via inline styles.
+> The 'style' and 'on*' ('onClick' etc.) attributes are always forbidden, and
+> are removed by Xss::filter()
 
-That limits this add-on's usage only to text-formats NOT using `Limit allowed HTML tags and correct faulty HTML` filter. i.e. *Full HTML*
+However, the CKEditor 4 [List Style](https://ckeditor.com/cke4/addon/liststyle)
+plugin sets the list properties via inline styles.
+
+See [#2850288-12]
 
 ## Usage
 Right click on any numbered or ordered list in CKEditor to open the context
@@ -26,73 +31,61 @@ menu.
 ## Installation
 This module requires:
 
-- `drupal/ckeditor`: Drupal core module _CKEditor_.
-
-- [CKEditor 4 List Style](https://ckeditor.com/cke4/addon/liststyle): A CKEditor4 plugin that adds numbered list and ordered list properties dialogs (available in context menu).
+- [List Style](https://ckeditor.com/cke4/addon/liststyle) plugin:
+  A CKEditor 4 plugin that adds numbered list and ordered list properties dialogs
+  (available in context menu).
 
 ### Install using Composer (recommended)
 
-There are at least couple different ways to install the CKEditor List Style module and the plugin via Composer.
+Edit your `composer.json` file, and add the **repository**, **installer type**,
+and **installer path** references from following.
 
-- Previous recommendation requires adding following package definition to the "repositories" section of `composer.json`:
+Make sure the **installer path** matches to your site's paths.
 
-``` json
-"repositories": {
-    ...
-    {
-        "type": "package",
-        "package": {
-            "name": "ckeditor/liststyle",
-            "version": "4.14.1",
-            "type": "drupal-library",
-            "extra": {
-                "installer-name": "ckeditor/plugins/liststyle"
-            },
-            "dist": {
-                "url": "https://download.ckeditor.com/liststyle/releases/liststyle_4.14.1.zip",
-                "type": "zip"
-            }
+``` 
+{
+  "repositories": {
+    "ckeditor.liststyle": {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/liststyle",
+        "version": "4.17.1",
+        "type": "ckeditor-plugin",
+        "dist": {
+          "url": "https://download.ckeditor.com/liststyle/releases/liststyle_4.17.1.zip",
+          "type": "zip"
         }
+      }
     }
-    ...
+  },
+  "extra": {
+    "installer-types": ["ckeditor-plugin"],
+    "installer-paths": {
+      "web/libraries/ckeditor/plugins/{$name}": ["type:ckeditor-plugin"]
+    }
+  }
 }
 ```
 
-- Update the `composer.lock` file: `composer update --lock`
+Run `composer update --lock` to generate an updated `composer.lock` file.
 
-- Install plugin and the module: `composer require ckeditor/liststyle drupal/ckeditor_liststyle`
+Make sure you already have these packages installed:
+- `composer/installers`
+- `oomphinc/composer-installers-extender`
 
-Alternatively, you can merge the provided `composer.libraries.json` file to the project `composer.json` file:
+Install the CKEditor List Style plugin, and this module:
 
-- Install [Composer Merge Plugin](https://github.com/wikimedia/composer-merge-plugin):
-  `composer require wikimedia/composer-merge-plugin`
-
-- Add the following to the `extra` section of the `composer.json` file:
-
-```json
-"extra": {
-    ...
-    "merge-plugin": {
-        "include": [
-            "web/modules/contrib/ckeditor_liststyle/composer.libraries.json"
-        ]
-    }
-    ...
-}
+```shell
+composer require ckeditor/liststyle drupal/ckeditor_liststyle
 ```
-
-- Update the `composer.lock` file: `composer update --lock`
-
-- Install the module: `composer require drupal/ckeditor_liststyle`
-
-As the plugin is defined as a dependency, it would be installed to `/libraries/ckeditor/plugins/liststyle/plugin.js`.
 
 ### Install manually
-- Open https://ckeditor.com/cke4/addon/liststyle and download the *[version: 4.14.1](https://download.ckeditor.com/liststyle/releases/liststyle_4.14.1.zip)*.
+- Download the [List Style](https://ckeditor.com/cke4/addon/liststyle) plugin;
+  extract the content, and copy to *libraries* folder.
+  i.e. `/libraries/liststyle/plugin.js`
 
-- Extract the content and copy to *libraries* folder. i.e. `/libraries/liststyle/plugin.js`
-
-- Download [CKEditor List Style](https://www.drupal.org/project/ckeditor_liststyle) (this module) and then extract files into `/modules/contrib/ckeditor_liststyle`
+- Download [CKEditor List Style](https://www.drupal.org/project/ckeditor_liststyle)
+  (this module) and then extract files to `/modules/contrib/ckeditor_liststyle`
 
 ## Resources
 [Other contributed modules and plug-ins available for CKEditor](https://www.drupal.org/documentation/modules/ckeditor/contrib)
